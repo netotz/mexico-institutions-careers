@@ -9,7 +9,12 @@ namespace Database
 
         public SchoolsContext()
         {
-            _connectionString = File.ReadAllText(Path.Combine("..", ".connection"));
+            var path = ".connection";
+            // if the instance is being created outside the project
+            if (!File.Exists(path)){
+                path = @"Database\.connection";
+            }
+            _connectionString = File.ReadAllText(path);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -59,6 +64,9 @@ namespace Database
             {
                 career.ToTable("CatCarrera");
 
+                career.HasOne(c => c.Degree)
+                    .WithMany(d => d.Careers)
+                    .HasForeignKey(c => c.DegreeId);
                 career.Property(c => c.Id)
                     .ValueGeneratedNever();
                 career.Property(c => c.Name)

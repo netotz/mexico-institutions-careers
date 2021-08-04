@@ -10,7 +10,7 @@ namespace Database.Migrations
                 name: "CatGradoCarrera",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     nombre = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -36,18 +36,17 @@ namespace Database.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    idGrado = table.Column<int>(type: "int", nullable: false),
-                    DegreeId1 = table.Column<long>(type: "bigint", nullable: true)
+                    idGrado = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CatCarrera", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CatCarrera_CatGradoCarrera_DegreeId1",
-                        column: x => x.DegreeId1,
+                        name: "FK_CatCarrera_CatGradoCarrera_idGrado",
+                        column: x => x.idGrado,
                         principalTable: "CatGradoCarrera",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,9 +74,9 @@ namespace Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CatCarrera_DegreeId1",
+                name: "IX_CatCarrera_idGrado",
                 table: "CatCarrera",
-                column: "DegreeId1");
+                column: "idGrado");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CatRelacionInstitucionCarrera_idCarrera",

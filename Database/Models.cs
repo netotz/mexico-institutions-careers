@@ -18,7 +18,7 @@ namespace Database {
     }
 
     public class Degree {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public List<Career> Careers { get; set; }
     }
