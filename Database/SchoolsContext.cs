@@ -9,7 +9,7 @@ namespace Database
 
         public SchoolsContext()
         {
-            _connectionString = File.ReadAllText(".connection");
+            _connectionString = File.ReadAllText(Path.Combine("..", ".connection"));
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -17,13 +17,17 @@ namespace Database
             optionsBuilder.UseSqlServer(_connectionString);
         }
 
+        public DbSet<Institution> Institutions { get; set; }
+        public DbSet<Career> Careers { get; set; }
+        public DbSet<Degree> Degrees { get; set; }
+        public DbSet<InstitutionCareer> InstitutionCareers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Institution>(institution =>
             {
                 institution.ToTable("CatInstitucion");
-                
+
                 institution.Property(i => i.Name)
                     .HasColumnName("nombre");
                 institution.Property(i => i.OriginalId)
@@ -38,7 +42,8 @@ namespace Database
                         ic => ic.HasOne(j => j.Institution)
                             .WithMany(ji => ji.InstitutionCareers)
                             .HasForeignKey(j => j.InstitutionId),
-                        ic => {
+                        ic =>
+                        {
                             ic.ToTable("CatRelacionInstitucionCarrera");
 
                             ic.Property(j => j.InstitutionId)
@@ -50,7 +55,8 @@ namespace Database
                         });
             });
 
-            modelBuilder.Entity<Career>(career => {
+            modelBuilder.Entity<Career>(career =>
+            {
                 career.ToTable("CatCarrera");
 
                 career.Property(c => c.Name)
@@ -61,7 +67,8 @@ namespace Database
                     .HasColumnName("idGrado");
             });
 
-            modelBuilder.Entity<Degree>(degree => {
+            modelBuilder.Entity<Degree>(degree =>
+            {
                 degree.ToTable("CatGradoCarrera");
 
                 degree.Property(c => c.Name)
