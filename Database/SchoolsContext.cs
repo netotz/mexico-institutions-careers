@@ -28,10 +28,10 @@ namespace Database
             {
                 institution.ToTable("CatInstitucion");
 
+                institution.Property(i => i.Id)
+                    .ValueGeneratedNever();
                 institution.Property(i => i.Name)
                     .HasColumnName("nombre");
-                institution.Property(i => i.OriginalId)
-                    .HasColumnName("idOriginal");
 
                 institution.HasMany(i => i.Careers)
                     .WithMany(c => c.Institutions)
@@ -59,10 +59,10 @@ namespace Database
             {
                 career.ToTable("CatCarrera");
 
+                career.Property(c => c.Id)
+                    .ValueGeneratedNever();
                 career.Property(c => c.Name)
                     .HasColumnName("nombre");
-                career.Property(c => c.OriginalId)
-                    .HasColumnName("originalId");
                 career.Property(c => c.DegreeId)
                     .HasColumnName("idGrado");
             });
@@ -71,10 +71,10 @@ namespace Database
             {
                 degree.ToTable("CatGradoCarrera");
 
+                degree.Property(d => d.Id)
+                    .ValueGeneratedNever();
                 degree.Property(c => c.Name)
                     .HasColumnName("nombre");
-                degree.Property(c => c.OriginalId)
-                    .HasColumnName("originalId");
             });
         }
     }

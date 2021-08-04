@@ -4,7 +4,6 @@ namespace Database {
     public class Institution {
         public int Id { get; set; }
         public string Name { get; set; }
-        public long OriginalId { get; set; }
         public List<Career> Careers { get; set; }
         public List<InstitutionCareer> InstitutionCareers { get; set; }
     }
@@ -12,7 +11,6 @@ namespace Database {
     public class Career {
         public int Id { get; set; }
         public string Name { get; set; }
-        public long OriginalId { get; set; }
         public int DegreeId { get; set; }
         public Degree Degree { get; set; }
         public List<Institution> Institutions { get; set; }
@@ -20,9 +18,8 @@ namespace Database {
     }
 
     public class Degree {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
-        public long OriginalId { get; set; }
         public List<Career> Careers { get; set; }
     }
 

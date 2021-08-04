@@ -10,10 +10,8 @@ namespace Database.Migrations
                 name: "CatGradoCarrera",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    originalId = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -24,10 +22,8 @@ namespace Database.Migrations
                 name: "CatInstitucion",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    idOriginal = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,21 +34,20 @@ namespace Database.Migrations
                 name: "CatCarrera",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    originalId = table.Column<long>(type: "bigint", nullable: false),
-                    idGrado = table.Column<int>(type: "int", nullable: false)
+                    idGrado = table.Column<int>(type: "int", nullable: false),
+                    DegreeId1 = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CatCarrera", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CatCarrera_CatGradoCarrera_idGrado",
-                        column: x => x.idGrado,
+                        name: "FK_CatCarrera_CatGradoCarrera_DegreeId1",
+                        column: x => x.DegreeId1,
                         principalTable: "CatGradoCarrera",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,9 +75,9 @@ namespace Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CatCarrera_idGrado",
+                name: "IX_CatCarrera_DegreeId1",
                 table: "CatCarrera",
-                column: "idGrado");
+                column: "DegreeId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CatRelacionInstitucionCarrera_idCarrera",
