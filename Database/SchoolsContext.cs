@@ -27,6 +27,11 @@ namespace Database
         public DbSet<Degree> Degrees { get; set; }
         public DbSet<InstitutionCareer> InstitutionCareers { get; set; }
 
+        /// <summary>
+        /// For my specific case I need to "follow" some kind of naming conventions for the database, which I personally dislike btw.
+        /// I wouldn't use any different name nor use a specific class for the join table.
+        /// But oh well...
+        /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Institution>(institution =>
