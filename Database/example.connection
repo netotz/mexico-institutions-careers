@@ -1,0 +1,2 @@
+// example, this line would be removed in .connection file
+Server=<server>;Initial Catalog=<database>;User Id=<user>;Password=<password>;
